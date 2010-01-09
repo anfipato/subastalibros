@@ -34,16 +34,77 @@ public class VendedorInfo extends JPanel {
 		initialize();
 	}
 
+	public void ActualizarLibro(LibroSubasta l) {
+		for(int i=0; i<defaultTableModel.getRowCount();i++) {
+			if(l.getTitulo().equals(defaultTableModel.getValueAt(i,0).toString()))
+			{
+				defaultTableModel.setValueAt(l.getPrecioPuja(), i, 3);
+				defaultTableModel.setValueAt(l.getComprador(), i, 4);
+				break;
+			}
+		}
+		
+	}
+
+	public void AñadirLibro(LibroSubasta l) {
+		defaultTableModel.addRow(new Object[] {l.getTitulo(), l.getPrecioMinimo(), l.getPrecioInicial(), l.getPrecioPuja(), ""});
+	}
+
 	/**
-	 * This method initializes this
-	 * 
+	 * This method initializes jButtonIniciar	
+	 * 	
+	 * @return javax.swing.JButton	
 	 */
-	private void initialize() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setSize(new Dimension(611, 268));
-        this.add(getJPanel(), null);
-        this.add(getJScrollPane(), null);
-			
+	private JButton getJButtonIniciar() {
+		if (jButtonIniciar == null) {
+			jButtonIniciar = new JButton();
+			jButtonIniciar.setMnemonic(KeyEvent.VK_UNDEFINED);
+			jButtonIniciar.setText("Iniciar Subasta");
+			jButtonIniciar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					jButtonIniciar.setEnabled(false);
+					jButtonTerminar.setEnabled(true);
+					gui.IniciarSubasta();
+				}
+			});
+		}
+		return jButtonIniciar;
+	}
+
+	/**
+	 * This method initializes jButtonTerminar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButtonTerminar() {
+		if (jButtonTerminar == null) {
+			jButtonTerminar = new JButton();
+			jButtonTerminar.setText("Terminar Subasta");
+			jButtonTerminar.setEnabled(false);
+			jButtonTerminar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					jButtonIniciar.setEnabled(true);
+					jButtonTerminar.setEnabled(false);
+					gui.TerminarSubasta();
+				}
+			});
+		}
+		return jButtonTerminar;
+	}
+
+	/**
+	 * This method initializes jPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel() {
+		if (jPanel == null) {
+			jPanel = new JPanel();
+			jPanel.setLayout(new BoxLayout(getJPanel(), BoxLayout.X_AXIS));
+			jPanel.add(getJButtonIniciar(), null);
+			jPanel.add(getJButtonTerminar(), null);
+		}
+		return jPanel;
 	}
 
 	/**
@@ -90,76 +151,15 @@ public class VendedorInfo extends JPanel {
 	}
 
 	/**
-	 * This method initializes jButtonIniciar	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes this
+	 * 
 	 */
-	private JButton getJButtonIniciar() {
-		if (jButtonIniciar == null) {
-			jButtonIniciar = new JButton();
-			jButtonIniciar.setMnemonic(KeyEvent.VK_UNDEFINED);
-			jButtonIniciar.setText("Iniciar Subasta");
-			jButtonIniciar.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					jButtonIniciar.setEnabled(false);
-					jButtonTerminar.setEnabled(true);
-					gui.IniciarSubasta();
-				}
-			});
-		}
-		return jButtonIniciar;
-	}
-
-	public void AñadirLibro(LibroSubasta l) {
-		defaultTableModel.addRow(new Object[] {l.getTitulo(), l.getPrecioMinimo(), l.getPrecioInicial(), l.getPrecioPuja(), ""});
-	}
-
-	public void ActualizarLibro(LibroSubasta l) {
-		for(int i=0; i<defaultTableModel.getRowCount();i++) {
-			if(l.getTitulo().equals(defaultTableModel.getValueAt(i,0).toString()))
-			{
-				defaultTableModel.setValueAt(l.getPrecioPuja(), i, 3);
-				defaultTableModel.setValueAt(l.getComprador(), i, 4);
-				break;
-			}
-		}
-		
-	}
-
-	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getJPanel() {
-		if (jPanel == null) {
-			jPanel = new JPanel();
-			jPanel.setLayout(new BoxLayout(getJPanel(), BoxLayout.X_AXIS));
-			jPanel.add(getJButtonIniciar(), null);
-			jPanel.add(getJButtonTerminar(), null);
-		}
-		return jPanel;
-	}
-
-	/**
-	 * This method initializes jButtonTerminar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getJButtonTerminar() {
-		if (jButtonTerminar == null) {
-			jButtonTerminar = new JButton();
-			jButtonTerminar.setText("Terminar Subasta");
-			jButtonTerminar.setEnabled(false);
-			jButtonTerminar.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					jButtonIniciar.setEnabled(true);
-					jButtonTerminar.setEnabled(false);
-					gui.TerminarSubasta();
-				}
-			});
-		}
-		return jButtonTerminar;
+	private void initialize() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setSize(new Dimension(611, 268));
+        this.add(getJPanel(), null);
+        this.add(getJScrollPane(), null);
+			
 	}
 	
 }  //  @jve:decl-index=0:visual-constraint="10,10"

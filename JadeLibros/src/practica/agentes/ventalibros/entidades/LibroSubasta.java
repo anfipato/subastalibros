@@ -22,13 +22,13 @@ public class LibroSubasta implements Serializable {
 		return this.precioPuja>this.precioMinimo;
 	}
 	
+	public boolean Anulado() {
+		return (this.comprador=="- ANULADO -");
+	}
+	
 	//
 	public boolean Comprado() {
 		return !Anulado() && (this.comprador!=null && !"".equals(this.comprador));
-	}
-	
-	public boolean Anulado() {
-		return (this.comprador=="- ANULADO -");
 	}
 	
 	public String getComprador() {
