@@ -1,0 +1,1 @@
+Implementación en JADE de una subasta holandesa de libro, con un agente vendedor y múltiples agentes compradores.
